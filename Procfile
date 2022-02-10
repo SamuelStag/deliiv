@@ -1,1 +1,1 @@
-web: nodemon ./home.js
+web: node home.js
