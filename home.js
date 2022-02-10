@@ -143,7 +143,7 @@ server.get("/canceltrip",function(req,res){
         await FirestoreClient.updateData("Trip",trip_id,field);
         field ={field:"trip_status",value:"Canceled"};
         await FirestoreClient.updateData("Trip",trip_id,field);
-            res.send("Trip Ended");
+            res.send("Trip Cancel");
         
     }
     update();
@@ -182,5 +182,5 @@ server.get("/fundwallet",function(req,res){
 });
 
 server.listen(process.env.PORT || 3000, function(){
-    console.log("Server is listening on port %d in %s mode",this.address().port);
+    console.log("Server is listening on port %d ",this.address().port,process.env.GOOGLE_APPLICATION_CREDENTIALS ="./deliiv_credentials.json");
 });
