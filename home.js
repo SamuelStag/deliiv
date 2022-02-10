@@ -181,6 +181,6 @@ server.get("/fundwallet",function(req,res){
     }
 });
 
-server.listen(3000, function(){
-    console.log("Server is listening on port 3000");
+server.listen(process.env.PORT || 3000, function(){
+    console.log("Server is listening on port %d in %s mode",this.address().port);
 });
