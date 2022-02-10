@@ -10,5 +10,8 @@
     "node": "16.13.2"
   },
   "author": "xodox",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+      "express": "^4.16.4"
+  }
 }
