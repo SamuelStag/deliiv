@@ -36,13 +36,13 @@ class Trip{
             
             // deduct money from user current balance  
             let current_user = await  FirestoreClient.getData("Users",DataManipulator.getUserId(user));
-            let current_user_balance = parseInt(current_user.balance) - amount;
+            let current_user_balance = parseInt(current_user.balance) - trip_amount;
             let field ={field:"balance",value:current_user_balance}
             await FirestoreClient.updateData("Users",DataManipulator.getUserId(user),field);
 
             // credit driver
              current_user = await  FirestoreClient.getData("Users",DataManipulator.getUserId(driver));
-             current_user_balance = parseInt(current_user.balance) + amount;
+             current_user_balance = parseInt(current_user.balance) + trip_amount;
              field ={field:"balance",value:current_user_balance}
             await FirestoreClient.updateData("Users",DataManipulator.getUserId(driver),field);
 
