@@ -49,6 +49,23 @@ server.get('/register', function(req,res){
     res.end();
 });
 
+server.get("/updateuser",function(req,res){
+    const user_email = req.query.email;
+    const field_to_update= req.query.data;
+    const value_to_update = req.query.value;
+    const user_id =DataManipulator.getUserId(user_email);
+    let field={field:field_to_update,value:value_to_update};
+    const update = async()=>{
+
+            await FirestoreClient.updateData("Users",user_id,field);
+            res.send(""+field_to_update+" field updated as "+value_to_update);
+
+    }
+    update();
+
+});
+
+
 server.get('/login', function(req,res){
     const user_name = req.query.email;
     const user_pass = req.query.pass;
@@ -149,6 +166,8 @@ server.get("/canceltrip",function(req,res){
     update();
 
 });
+
+
 
 server.get("/fundwallet",function(req,res){
     const user_name = req.query.email;
