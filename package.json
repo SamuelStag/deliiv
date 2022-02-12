@@ -10,5 +10,9 @@
     "node": "16.13.2"
   },
   "author": "xodox",
+  "dependencies": {
+    "@google-cloud/firestore":"5.0.2",
+    "express":"^4.17.2"
+  },
   "license": "ISC"
 }
