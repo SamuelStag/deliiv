@@ -1,7 +1,9 @@
 const FirestoreClient = require('./firebase_config');
 const DataManipulator = require("./data_manipulator");
 class Trip{
-    constructor(){}
+    constructor(){
+
+    }
     getTripFare(pickup_location,final_destination){
         let price =200;
         return price;
@@ -15,13 +17,13 @@ class Trip{
     async Possible(user,amount){
         let result = false;
         const userbalance = async()=> {
-            const user_det = FirestoreClient.getData("Users",DataManipulator.getUserId(user));
+            const user_det = FirestoreClient.getData("Users",DataManipulator.decryptUserId(user));
             const current_balance = parseInt(user_det.balance);
             return current_balance;
 
         }
             const user_bal_await = await userbalance();
-            console.log(user_bal_await);
+           
          if(amount > user_bal_await){
              result=true;
          }
@@ -35,16 +37,16 @@ class Trip{
             const driver = trip.driver; 
             
             // deduct money from user current balance  
-            let current_user = await  FirestoreClient.getData("Users",DataManipulator.getUserId(user));
+            let current_user = await  FirestoreClient.getData("Users",DataManipulator.decryptUserId(user));
             let current_user_balance = parseInt(current_user.balance) - trip_amount;
             let field ={field:"balance",value:current_user_balance}
-            await FirestoreClient.updateData("Users",DataManipulator.getUserId(user),field);
+            await FirestoreClient.updateData("Users",DataManipulator.decryptUserId(user),field);
 
             // credit driver
-             current_user = await  FirestoreClient.getData("Users",DataManipulator.getUserId(driver));
+             current_user = await  FirestoreClient.getData("Users",DataManipulator.decryptUserId(driver));
              current_user_balance = parseInt(current_user.balance) + trip_amount;
              field ={field:"balance",value:current_user_balance}
-            await FirestoreClient.updateData("Users",DataManipulator.getUserId(driver),field);
+            await FirestoreClient.updateData("Users",DataManipulator.decryptUserId(driver),field);
 
                 
         }

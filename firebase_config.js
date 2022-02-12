@@ -44,7 +44,7 @@ class FirestoreClient{
      if(collection!=undefined && document!=undefined){
         const docRef = this.firestore.collection(collection).doc(document);
         const res = await docRef.update(field.field,field.value);
-        console.log(res);
+       
      }else{
         error ="Required inputs not complete";
         return error;
