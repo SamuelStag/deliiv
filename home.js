@@ -62,7 +62,7 @@ server.get('/register', function(req,res){
     }else{
         res.send("Validation error, incomplete data");
     }
-    res.end();
+   
 });
 
 server.get("/updateuser",function(req,res){
