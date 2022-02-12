@@ -66,7 +66,7 @@ server.get("/wallet",function(req,res){
         
         });
 
-server.get('/register', function(req,res){
+server.post('/register', function(req,res){
     let user_name = req.query.name;
     let user_email = req.query.email;
     let user_phone =  req.query.phone;
@@ -120,7 +120,7 @@ server.get('/register', function(req,res){
    
 });
 
-server.get("/updateuser",function(req,res){
+server.post("/updateuser",function(req,res){
     const user_email = req.query.user_token;
     const field_to_update= req.query.data;
     const value_to_update = req.query.value;
@@ -158,7 +158,7 @@ server.get("/updateuser",function(req,res){
 });
 
 
-server.get('/login', function(req,res){
+server.post('/login', function(req,res){
     const user_name = req.query.email;
     const user_pass = req.query.pass;
     const result = async() =>{
