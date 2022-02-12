@@ -105,30 +105,43 @@ server.get('/login', function(req,res){
     const user_pass = req.query.pass;
     const result = async() =>{
         const response = await FirestoreClient.getData('Users',DataManipulator.getUserId(user_name));
-        if(response!=undefined){
-            if(response.pass==user_pass){
-                const response =await FirestoreClient.getData("Users",DataManipulator.getUserId(user_name));
-                const JSON_response = {
-                    message:"Login Successful",
-                    data:response,
-                    status:"200"
-                };
-                const stringify_response = JSON.stringify(JSON_response);
-                res.status(200);
-                res.send(stringify_response);
-            
-    
+        try{
+            if(response!=undefined){
+                if(response.pass==user_pass){
+                    const response =await FirestoreClient.getData("Users",DataManipulator.getUserId(user_name));
+                    const JSON_response = {
+                        message:"Login Successful",
+                        data:response,
+                        status:"200"
+                    };
+                    const stringify_response = JSON.stringify(JSON_response);
+                    res.status(200);
+                    res.send(stringify_response);
+                
+        
+                }else{
+                    res.status(400);
+                    const JSON_response = {
+                        message:"Invalid login details",
+                        data:response,
+                        status:"400"
+                    };
+                    const stringify_response = JSON.stringify(JSON_response);
+                    res.send(stringify_response);
+                }
             }else{
-                res.status(400);
                 const JSON_response = {
-                    message:"Invalid login details",
+                    message:"User not found",
                     data:response,
                     status:"400"
                 };
                 const stringify_response = JSON.stringify(JSON_response);
+                res.status(200);
                 res.send(stringify_response);
             }
-        }else{
+
+        }catch(catcher){
+
             const JSON_response = {
                 message:"User not found",
                 data:response,
@@ -138,6 +151,7 @@ server.get('/login', function(req,res){
             res.status(200);
             res.send(stringify_response);
         }
+     
         
     }
     result();
