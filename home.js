@@ -441,5 +441,5 @@ server.get("/fundwallet",function(req,res){
 });
 
 server.listen(process.env.PORT || 3000, function(){
-    console.log("Server is listening on port %d ",this.address().port,process.env.GOOGLE_APPLICATION_CREDENTIALS ="./deliiv_credentials.Json");
+    console.log("Server is listening on port %d ",this.address().port,process.env.GOOGLE_APPLICATION_CREDENTIALS ="./deliiv_credentials.json");
 });
