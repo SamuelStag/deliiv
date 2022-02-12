@@ -16,19 +16,41 @@ class FirestoreClient{
   }
 
  async save(collection,document,data){
-   const docRef = this.firestore.collection(collection).doc(document);
-   await docRef.set(data);
+     let error ="";
+     if(collection!=undefined && document!=undefined){
+        const docRef = this.firestore.collection(collection).doc(document);
+        await docRef.set(data);
+     }else{
+         error ="Required inputs not complete";
+         return error;
+     }
+   
 
  }
  async getData(collection,document){
   let result={};
-  const docRef = this.firestore.collection(collection).doc(document);
-  result =await docRef.get();
-  return result.data();
+  let error ="";
+  if(collection!=undefined && document !=undefined){
+    const docRef = this.firestore.collection(collection).doc(document);
+    result =await docRef.get();
+    return result.data();
+  }else{
+    error ="Required inputs not complete";
+    return error;
+  }
+
  }
  async updateData(collection,document,field){
-  const docRef = this.firestore.collection(collection).doc(document);
-  const res = await docRef.update(field.field,field.value);
+    let error ="";
+     if(collection!=undefined && document!=undefined){
+        const docRef = this.firestore.collection(collection).doc(document);
+        const res = await docRef.update(field.field,field.value);
+        console.log(res);
+     }else{
+        error ="Required inputs not complete";
+        return error;
+      }
+  
  }
  
 }
