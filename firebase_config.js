@@ -1,6 +1,5 @@
 const Firestore = require("@google-cloud/firestore");
 
-
 class FirestoreClient{
   constructor(){
     this.firestore = new Firestore({

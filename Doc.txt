@@ -1,0 +1,61 @@
+Base domain name:
+    https://deliivdelivery.herokuapp.com/ (Heroku Server)
+
+
+Register user:
+    /register?email=user_email&pass=user_pass&name=user_name&phone=user_phone&type=user_type
+        user_email = Email Address (String)
+        pass  = Password (String)
+        user_name = User registered name (String)
+        user_phone = User Phone number (String)
+        User_type =   Rider or User (String)
+            Success: Registerd successfully %user_name%
+            Error: Validation Failed
+
+Login user:  /login?email=user_email&pass=user_pass
+        user_email = Email Address (String)
+        pass  = Password (String)
+            Success: OK
+            Error: Validation Failed
+
+Create Trip:
+    /createtrip?initiator=Obajemusa@gmail.com&pickup_location=No 13 marafa street bayan dutse narayi&final_destination=No 15 marafa street bayan duste narayi
+        initiator = Email Address of user creating trip (String)
+        pickup_location  = Location where the Rider is to meet user  (String)
+        final_destination = Destination where the trip is to end (String)
+            Success: Trip created
+            Error: Failed
+
+Pick Trip:
+    /picktrip?trip_id=trip_id&driver=driver
+        trip_id = Trip ID (String)
+        driver = Driver: Email Address of the rider (String)
+            Success: Trip picked
+            Error: Failed
+
+Start Trip:
+    /starttrip?trip_id=trip_id
+        trip_id = Trip ID (String)
+            Success: Trip started
+            Error: Failed
+
+End Trip:
+    /endtrip?trip_id=trip_id
+        trip_id = Trip ID (String)
+            Success: Trip ended
+            Error: Failed
+
+Cancel Trip:
+    /canceltrip?trip_id=trip_id
+        trip_id = Trip ID (String)
+            Success: Trip canceled
+            Error: Failed
+
+Fund Wallet:
+    /fundwallet?email=user_email&amount
+        email = User email (String)
+        amount = amount (String)
+            Success: Wallet Funded
+            Error: Failed
+
+
