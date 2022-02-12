@@ -34,7 +34,7 @@ server.get('/register', function(req,res){
     let user_phone =  req.query.phone;
     let user_pass = req.query.pass;
     let user_type = req.query.type;
-    let user_details = {name:"",email:"",phone:"",pass:"",date:"",balance:"0",user_type:"",avi:""};
+    let user_details = {name:"",email:"",phone:"",pass:"",date:"",balance:"0",user_type:"",avi:"",status:"idle"};
     if(user_name!=undefined && user_email!=undefined && user_phone!=undefined && user_pass!=undefined,user_type!=undefined){
         user_details.name=user_name;
         user_details.email= user_email; 
@@ -105,28 +105,40 @@ server.get('/login', function(req,res){
     const user_pass = req.query.pass;
     const result = async() =>{
         const response = await FirestoreClient.getData('Users',DataManipulator.getUserId(user_name));
-        if(response.pass==user_pass){
-            const response =await FirestoreClient.getData("Users",DataManipulator.getUserId(user_name));
+        if(response!=undefined){
+            if(response.pass==user_pass){
+                const response =await FirestoreClient.getData("Users",DataManipulator.getUserId(user_name));
+                const JSON_response = {
+                    message:"Login Successful",
+                    data:response,
+                    status:"200"
+                };
+                const stringify_response = JSON.stringify(JSON_response);
+                res.status(200);
+                res.send(stringify_response);
+            
+    
+            }else{
+                res.status(400);
+                const JSON_response = {
+                    message:"Invalid login details",
+                    data:response,
+                    status:"400"
+                };
+                const stringify_response = JSON.stringify(JSON_response);
+                res.send(stringify_response);
+            }
+        }else{
             const JSON_response = {
-                message:"Login Successful",
+                message:"User not found",
                 data:response,
-                status:"200"
+                status:"400"
             };
             const stringify_response = JSON.stringify(JSON_response);
             res.status(200);
             res.send(stringify_response);
-        
-
-        }else{
-            res.status(400);
-            const JSON_response = {
-                message:"Login Successful",
-                data:response,
-                status:"200"
-            };
-            const stringify_response = JSON.stringify(JSON_response);
-            res.send(stringify_response);
         }
+        
     }
     result();
 });
