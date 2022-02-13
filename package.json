@@ -6,15 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node home.js"
-
   },
   "engines": {
     "node": "16.13.2"
   },
   "author": "xodox",
   "dependencies": {
-    "@google-cloud/firestore":"5.0.2",
-    "express":"^4.17.2"
+    "@google-cloud/firestore": "^5.0.2",
+    "express": "^4.17.2",
+    "nodemailer": "^6.7.2",
+    "twilio": "^3.74.0"
   },
   "license": "ISC"
 }

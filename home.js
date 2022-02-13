@@ -3,10 +3,46 @@ const server =  express();
 const FirestoreClient = require('./firebase_config');
 const DataManipulator = require("./data_manipulator");
 const Trip = require("./Trip");
+const Communication = require("./Communication");
 
 
 server.get('/',function(req,res){
     res.send("WELCOME");
+
+});
+
+server.post('/smsotp',function(req,res){
+    const phone = req.query.phone;
+    const otp = Math.floor(Math.random() * (9000 - 1000 + 1)) + 1000; 
+    if(phone!=undefined && phone.length == 14){
+        res.status(200);
+        if(Communication.sendSms(otp,"+"+phone)){
+            const response ={
+                Message:"OTP sent",
+                Data:otp,
+                state:"Successful"
+            }
+            res.send(JSON.stringify(response));
+        }else{
+            res.status(400);
+            Communication.sendSms(otp,phone);
+            const response ={
+                Message:"Phone number entered is invalid",
+                state:"Error"
+            }
+            res.send(JSON.stringify(response));
+        } 
+       
+    }else{
+        res.status(400);
+        Communication.sendSms(otp,phone);
+        const response ={
+            Message:"Phone number entered is invalid",
+            state:"Error"
+        }
+        res.send(JSON.stringify(response));
+    } 
+    
 
 });
 
